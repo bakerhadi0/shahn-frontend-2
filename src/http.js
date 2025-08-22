@@ -1,10 +1,12 @@
-import axios from "axios";
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE || "https://shahn-server.onrender.com",
-});
-api.interceptors.request.use((config) => {
-  const t = localStorage.getItem("token");
-  if (t) config.headers.Authorization = `Bearer ${t}`;
-  return config;
-});
-export default api;
+import axios from "axios"
+
+export const http = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE,
+  headers: { "Content-Type": "application/json" }
+})
+
+http.interceptors.request.use(cfg => {
+  const t = localStorage.getItem("token")
+  if (t) cfg.headers.Authorization = `Bearer ${t}`
+  return cfg
+})
